@@ -1,0 +1,11 @@
+name: sciatica-fusion
+channels: [conda-forge, bioconda]
+dependencies:
+  - r-base=4.4
+  - r-optparse
+  - r-data.table
+  - python=3.11
+  - pandas
+  - numpy
+  - scipy
+  - plink=1.90b6.21

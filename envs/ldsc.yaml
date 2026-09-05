@@ -1,0 +1,8 @@
+name: sciatica-ldsc
+channels: [conda-forge, bioconda]
+dependencies:
+  - python=2.7
+  - numpy=1.16
+  - scipy=1.2
+  - pandas=0.24
+  - bitarray=0.8

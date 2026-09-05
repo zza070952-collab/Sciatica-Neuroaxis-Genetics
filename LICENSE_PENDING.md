@@ -1,0 +1,1 @@
+The authors have authorized public visibility. An explicit reuse-license decision is pending. No MIT, Apache, or GPL license is asserted by this file. A formal versioned release will await the author decision.

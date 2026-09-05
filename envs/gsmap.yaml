@@ -1,0 +1,13 @@
+name: sciatica-gsmap
+channels: [conda-forge, bioconda]
+dependencies:
+  - python=3.10
+  - pip
+  - pandas
+  - numpy
+  - scipy
+  - scanpy
+  - anndata
+  - pytables
+  - pip:
+      - gsmap==1.73.7

@@ -1,0 +1,6 @@
+name: sciatica-drg
+channels: [conda-forge]
+dependencies:
+  - r-base=4.4
+  - r-dplyr
+  - r-tidyr

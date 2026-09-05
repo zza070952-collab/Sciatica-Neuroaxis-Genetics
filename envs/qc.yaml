@@ -1,0 +1,12 @@
+name: sciatica-qc
+channels: [conda-forge, bioconda]
+dependencies:
+  - python=3.11
+  - pandas
+  - numpy
+  - scipy
+  - matplotlib
+  - pysam
+  - pyyaml
+  - plink=1.90b6.21
+  - samtools

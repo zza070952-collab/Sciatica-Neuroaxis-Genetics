@@ -1,0 +1,10 @@
+component	version_or_commit	source
+LDSC	1.0.1	production LDSC stdout banner
+MAGMA	1.10	production executable path and commands
+FUSION	9346c1222bffbb34499fa7a8e23c1b701b55cb05	Phase 3 fusion_commit.txt
+coloc	5.2.3	coloc_environment_versions.txt
+susieR	0.14.2	coloc_environment_versions.txt
+gsMap	1.73.7	Phase 3 software_versions.tsv
+scanpy	1.11.5	Phase 3 software_versions.tsv
+anndata	0.11.4	Phase 3 software_versions.tsv
+R	4.4.3	coloc_environment_versions.txt

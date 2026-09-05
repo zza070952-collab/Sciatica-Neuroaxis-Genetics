@@ -1,0 +1,76 @@
+gwas_qc:
+  environment: qc
+  prerequisites: [data/gwas/FinnGen_DF13_M13_SCIATICA.gz, data/gwas/FinnGen_DF13_M13_LUMBAR_PROLAPSE.gz, work/gwas/M13_SCIATICA.sumstats.gz, work/gwas/M13_LUMBAR_PROLAPSE.sumstats.gz]
+  commands:
+    - python scripts/01_gwas_qc/audit_and_prepare_gwas.py --input data/gwas/FinnGen_DF13_M13_SCIATICA.gz --trait SCIATICA --output-prefix work/gwas_qc/SCIATICA_R13
+    - python scripts/01_gwas_qc/audit_and_prepare_gwas.py --input data/gwas/FinnGen_DF13_M13_LUMBAR_PROLAPSE.gz --trait LDH --output-prefix work/gwas_qc/LDH_R13
+    - python scripts/01_gwas_qc/phase3_gwas_qc.py
+    - python scripts/01_gwas_qc/prepare_phase3_gwas_formats.py
+ldsc:
+  environment: ldsc
+  prerequisites: [work/gwas/M13_SCIATICA.sumstats.gz, work/gwas/M13_LUMBAR_PROLAPSE.sumstats.gz, work/software/src/ldsc/ldsc.py, raw/ld/ldsc_eur_w_ld_chr]
+  commands:
+    - bash scripts/02_ldsc/run_phase3_ldsc.sh
+    - python3 scripts/02_ldsc/parse_phase3_ldsc.py
+magma:
+  environment: magma
+  prerequisites: [work/phase3_final/gwas_formats/SCIATICA.magma.pval, work/software/phase3_magma/magma_v1.10, work/software/phase3_magma/g1000_eur, work/software/phase3_magma/NCBI37.3, raw/phase3_final/msigdb/c2.cp.v2026.1.Hs.entrez.gmt, raw/phase3_final/msigdb/c5.go.v2026.1.Hs.entrez.gmt]
+  commands:
+    - bash scripts/03_magma/run_phase3_magma.sh
+    - bash scripts/03_magma/run_magma_noMHC_pathways.sh
+    - python scripts/03_magma/parse_phase3_magma.py
+fusion:
+  environment: twas
+  prerequisites: [work/software/phase3_twas/FUSION_WEIGHTS_EUR/archive_manifest.tsv, work/software/phase3_twas/fusion_twas/FUSION.assoc_test.R, work/software/phase3_twas/LDREF]
+  commands:
+    - bash scripts/04_fusion_twas/prepare_fusion_sumstats.sh
+    - bash scripts/04_fusion_twas/run_fusion_full.sh
+    - python scripts/04_fusion_twas/parse_phase3_fusion.py
+joint:
+  environment: twas
+  prerequisites: [results/phase3_final/05_twas/twas_all_results.tsv]
+  commands:
+    - bash scripts/05_conditional_joint/run_fusion_joint.sh
+    - python scripts/05_conditional_joint/summarize_fusion_twas.py
+coloc:
+  environment: coloc
+  prerequisites: [results/phase3_final/03_magma/gene_results.tsv, results/phase3_final/05_twas/twas_all_results.tsv, work/software/phase3_twas/predictdb_core/eqtl/mashr, work/phase3_final/gsmap_resource/genome_annotation/gtf/gencode.v46lift37.basic.annotation.gtf]
+  commands:
+    - python scripts/06_coloc_susie/select_phase3_genetic_candidates.py
+    - bash scripts/06_coloc_susie/index_phase3_coloc_eaf.sh
+    - python scripts/06_coloc_susie/fetch_phase3_coloc_inputs.py
+    - Rscript scripts/06_coloc_susie/run_phase3_coloc_abf.R
+    - python scripts/06_coloc_susie/prepare_phase3_susie_ld.py
+    - Rscript scripts/06_coloc_susie/run_phase3_susie_coloc.R
+    - python scripts/10_candidate_integration/build_phase3_provisional_candidates.py
+gsmap:
+  environment: gsmap
+  prerequisites: [results/spatial_audit/spatial_manifest.tsv, raw/geo/GSE222322/unpacked/raw, work/phase3_final/gsmap_resource]
+  commands:
+    - python scripts/07_gsmap/prepare_phase3_gsmap_inputs.py
+    - python scripts/07_gsmap/add_gsmap_pca_latent.py
+    - bash scripts/07_gsmap/run_gsmap_batch.sh
+    - python scripts/07_gsmap/parse_phase3_gsmap.py
+singlecell:
+  environment: singlecell
+  prerequisites: [work/inherited/GSE243076_spinal_snRNA_results5s_annotated.h5ad, raw/geo/GSE168243/unpacked, results/phase3_final/07_genetic_candidates/provisional_genetic_candidates.tsv]
+  commands:
+    - python scripts/08_spinal_snRNA/run_phase3_singlecell_base.py
+    - python scripts/08_spinal_snRNA/run_phase3_spatial_label_transfer.py
+integration:
+  environment: singlecell
+  prerequisites: [results/phase3_final/09_singlecell/candidate_expression_by_celltype.tsv, results/phase3_final/09_singlecell/candidate_spatial_alignment.tsv]
+  commands:
+    - python scripts/10_candidate_integration/integrate_phase3_candidates_cells_space.py
+    - python scripts/10_candidate_integration/freeze_phase3_candidates.py
+drg_recurrence:
+  environment: drg
+  prerequisites: [data/processed/S11B_DRG_expression.tsv]
+  commands:
+    - Rscript scripts/09_DRG_snRNA/drg_recurrence.R data/processed/S11B_DRG_expression.tsv results/phase8_JTM_core_final/03_drg_recurrence_fix
+figures:
+  environment: figures
+  prerequisites: [data/computational_source_data/Source_Data_Figure1.xlsx, data/computational_source_data/Source_Data_Figure2.xlsx, data/computational_source_data/Source_Data_Figure3.xlsx, data/computational_source_data/Source_Data_Figure4.xlsx, data/computational_source_data/Source_Data_Figure5.xlsx, data/computational_source_data/Source_Data_Figure6.xlsx, results/phase8_JTM_core_final/03_drg_recurrence_fix/DRG_expression_positive_recurrence.tsv]
+  commands:
+    - python scripts/11_figures_computational/main_figures.py
+    - python scripts/11_figures_computational/run_supplementary.py

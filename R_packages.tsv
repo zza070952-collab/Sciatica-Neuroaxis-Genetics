@@ -1,0 +1,7 @@
+package	production_version	evidence
+R	4.4.3	Phase 3 coloc_environment_versions.txt
+coloc	5.2.3	Phase 3 coloc_environment_versions.txt
+susieR	0.14.2	Phase 3 coloc_environment_versions.txt
+data.table	1.18.4	Phase 3 coloc_environment_versions.txt
+dplyr	NOT_RECORDED	Phase 8 script import; version not in frozen source log
+tidyr	NOT_RECORDED	Phase 8 script import; version not in frozen source log

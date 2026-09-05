@@ -1,0 +1,13 @@
+gwas:
+  sciatica: data/gwas/FinnGen_DF13_M13_SCIATICA.gz
+  ldh: data/gwas/FinnGen_DF13_M13_LUMBAR_PROLAPSE.gz
+  height: data/gwas/finngen_R13_HEIGHT_IRN.gz
+external_prepared_inputs:
+  hm3_sciatica: work/gwas/M13_SCIATICA.sumstats.gz
+  hm3_ldh: work/gwas/M13_LUMBAR_PROLAPSE.sumstats.gz
+  section_manifest: results/spatial_audit/spatial_manifest.tsv
+  source_workbooks: data/computational_source_data
+  supplementary_computational_tables: data/computational_source_tables
+  drg_expression: data/processed/S11B_DRG_expression.tsv
+source_results: results/phase3_final
+publication_results: results/phase8_JTM_core_final

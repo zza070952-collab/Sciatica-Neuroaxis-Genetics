@@ -1,0 +1,27 @@
+project_root: .
+random_seed: 20260805
+primary_trait: SCIATICA
+reference_trait: LDH
+genome_build: GRCh38
+figure_seed: 7
+drg_umap_seed: 1907
+prespecified_tissues:
+  - Nerve_Tibial
+  - Brain_Spinal_cord_cervical_c-1
+  - Whole_Blood
+  - Muscle_Skeletal
+  - Cells_Cultured_fibroblasts
+coloc:
+  p1: 0.0001
+  p2: 0.0001
+  p12: 0.00001
+  strong_pp4: 0.80
+drg_recurrence:
+  minimum_nuclei: 20
+  minimum_fraction: 0.05
+  preparations: 6
+  unique_donors: 5
+frozen_rank:
+  TXNL1: 1
+  MAPK3: 2
+  FGFR3: 3

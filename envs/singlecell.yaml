@@ -1,0 +1,14 @@
+name: sciatica-singlecell
+channels: [conda-forge, bioconda]
+dependencies:
+  - python=3.10
+  - pandas
+  - numpy
+  - scipy
+  - scanpy=1.11
+  - anndata
+  - harmonypy
+  - scrublet
+  - scikit-learn
+  - matplotlib
+  - seaborn

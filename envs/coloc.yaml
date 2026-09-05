@@ -1,0 +1,11 @@
+name: sciatica-coloc
+channels: [conda-forge, bioconda]
+dependencies:
+  - r-base=4.4
+  - r-coloc
+  - r-susier
+  - r-data.table
+  - python=3.11
+  - pandas
+  - numpy
+  - plink=1.90b6.21

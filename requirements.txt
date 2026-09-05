@@ -1,0 +1,9 @@
+numpy
+pandas
+scipy
+matplotlib
+PyYAML
+openpyxl
+pymupdf
+pypdf
+pillow
