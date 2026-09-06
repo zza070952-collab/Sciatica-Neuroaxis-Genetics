@@ -4,6 +4,10 @@ Reproducible computational workflows supporting the manuscript on integrated gen
 
 This repository contains manuscript computational analyses and computational figure code. Wet-laboratory raw data, statistical scripts, and laboratory records are excluded. The primary phenotype is FinnGen DF13 M13_SCIATICA; M13_LUMBAR_PROLAPSE is a structural reference from the same release, not independent replication. The frozen candidate order is TXNL1, MAPK3, then FGFR3.
 
+## Public source snapshot
+
+Public disclosure of this computational source snapshot was explicitly authorized by the author on 2026-09-06. This is not a certified end-to-end raw-data reproduction or a versioned v1.0.0 release. The retained preprocessing and supplementary-figure provenance boundaries are prominently documented in `docs/reproducibility_limitations.md`; source availability does not resolve those boundaries. The code can be inspected and downloaded without a repository invitation. A reuse license has not yet been selected: see `LICENSE_PENDING.md`.
+
 ## Workflow and scope
 
 GWAS QC → LDSC → MAGMA → five-tissue FUSION → conditional/joint → full-cis ABF/SuSiE colocalization → gsMap → adult spinal/DRG single-nucleus references → candidate integration → computational figures.
